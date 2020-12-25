@@ -7,8 +7,8 @@ This project demonstrates, how we can make use of deep learning to do state-of-t
 ![alt text](https://cdn-images-1.medium.com/max/800/0*gL9UZQFdwFk-9smY.png)
 
 ## How to run
-1. Download [imagenet](https://drive.google.com/open?id=1UOyZ8166qM3SzxGvaUeWpBzSUfoQLUjJ) folder, extraxt and keep it in server directory
-2. Download datasets for [footwares](http://vision.cs.utexas.edu/projects/finegrained/utzap50k/), [apparels](http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion/InShopRetrieval.html) keep them inside a directory under upload folder. Final folder strcture will be as below
+1. Download [imagenet] folder, extraxt and keep it in server directory
+2. Download datasets for [footwares], [apparels] keep them inside a directory under upload folder. Final folder strcture will be as below
 ```
       root folder  
       │
@@ -41,6 +41,6 @@ This project demonstrates, how we can make use of deep learning to do state-of-t
 
 One interesting application of this project is a recommendation engine based on image features.Here is an example of similar project of mine. Here instead of a web UI i have used an android UI. Once the user clicks a product image, the image will go to the server and k-number of similar product images can be displayed on UI as product recommendations. Theses rescommendations are purely based on image similarity. This kind of recommendations have high potentials in fashion-based ecommerce industry.
 
-![Example Results](server/static/images/result1.jpg)
-![Example Results](server/static/images/result2.jpg)
+<!-- ![Example Results](server/static/images/result1.jpg)
+![Example Results](server/static/images/result2.jpg) -->
 

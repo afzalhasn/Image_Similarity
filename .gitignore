@@ -3,3 +3,7 @@ dogs_and_cats
 imagenet
 *.pickle
 saved_features_recom.txt
+venv
+img
+.DS_Store
+*_new.txt

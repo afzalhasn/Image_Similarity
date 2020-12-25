@@ -93,9 +93,11 @@ slippers_files = [
 # ]
 
 all_files = []
-for root, dirs, files in os.walk("uploads/dogs_and_cats/", topdown=False):
+for root, dirs, files in os.walk("uploads/", topdown=False):
    for name in files:
-      all_files.append(os.path.join(root, name))
+       _,name_ext = os.path.splitext(name)
+       if name_ext[1:].lower() not in ['jpg','jpeg','png']: continue
+       all_files.append(os.path.join(root, name))
 # all_files = boots_files + shoes_files + slippers_files + sandals_files
 # + apparel_files
 
@@ -103,7 +105,7 @@ random.shuffle(all_files)
 
 num_images = 10000
 neighbor_list = all_files[:num_images]
-with open('neighbor_list_recom.pickle','wb') as f:
+with open('neighbor_list_recom_new.pickle','wb') as f:
         pickle.dump(neighbor_list,f)
 print("saved neighbour list")
 
@@ -123,7 +125,7 @@ for i, filename in enumerate(neighbor_list):
         print(i)
        
 
-np.savetxt("saved_features_recom.txt", extracted_features)
+np.savetxt("saved_features_recom_new.txt", extracted_features)
 print("saved exttracted features")
 
 

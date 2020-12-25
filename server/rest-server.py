@@ -19,11 +19,11 @@ import tarfile
 from datetime import datetime
 from scipy import ndimage
 # from scipy.misc import imsave 
-# UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 from tensorflow.python.platform import gfile
-app = Flask(__name__)
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app = Flask(__name__,template_folder='templates',static_url_path="")
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # auth = HTTPBasicAuth()
 cors = CORS(app)
 
@@ -34,7 +34,7 @@ cors = CORS(app)
 #                                                                                                                              
 #==============================================================================================================================
 extracted_features=np.zeros((10000,2048),dtype=np.float32)
-with open('../lib/saved_features_recom.txt') as f:
+with open('../lib/saved_features_recom_new.txt') as f:
     		for i,line in enumerate(f):
         		extracted_features[i,:]=line.split()
 print("loaded extracted_features") 
@@ -70,8 +70,9 @@ def upload_img():
            
             print('No selected file')
             return redirect(request.url)
-        if file and allowed_file(file.filename):
-         
+        _, file_ext = os.path.splitext(file.filename)
+        if file and file_ext[1:] in ALLOWED_EXTENSIONS:
+        
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             inputloc = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -102,12 +103,11 @@ def upload_img():
 #==============================================================================================================================
 @app.route("/")
 def main():
-    
-    return render_template("templates/recommend.html")   
+    return render_template("recommend.html")   
 if __name__ == '__main__':
     # app.run(debug = True, host= '0.0.0.0')
     if "PORT" in os.environ:
         app.run(host='0.0.0.0', port=os.environ["PORT"])
     else:
-        print(f"Port number not set..")
+        print(f"PORT number not set..")
 

@@ -11,7 +11,7 @@ import scipy.io
 import time
 from datetime import datetime
 from scipy import ndimage
-from scipy.misc import imsave 
+# from scipy.misc import imsave 
 from scipy.spatial.distance import cosine
 #import matplotlib.pyplot as plt
 from sklearn.neighbors import NearestNeighbors
@@ -41,7 +41,7 @@ def get_top_k_similar(image_data, pred, pred_final, k=9):
     os.mkdir('static/result')
 
     # cosine calculates the cosine distance, not similiarity. Hence no need to reverse list
-    top_k_ind = np.argsort([cosine(image_data, pred_row) for ith_row, pred_row in enumerate(pred)])[:k]
+    top_k_ind = np.argsort([cosine(image_data, pred_row) for ith_row, pred_row in enumerate(pred)][:k])
     print(top_k_ind)
 
     for i, neighbor in enumerate(top_k_ind):
@@ -51,7 +51,8 @@ def get_top_k_similar(image_data, pred, pred_final, k=9):
         print(name)
         name = 'static/result/image'+"_"+name+'.jpg'
         imsave(name, image)
-
+      
+                
 def create_inception_graph():
   """"Creates a graph from saved GraphDef file and returns a Graph object.
 
@@ -59,11 +60,11 @@ def create_inception_graph():
     Graph holding the trained Inception network, and various tensors we'll be
     manipulating.
   """
-  with tf.compat.v1.Session() as sess:
+  with tf.Session() as sess:
     model_filename = os.path.join(
         'imagenet', 'classify_image_graph_def.pb')
     with gfile.FastGFile(model_filename, 'rb') as f:
-      graph_def = tf.compat.v1.GraphDef()
+      graph_def = tf.GraphDef()
       graph_def.ParseFromString(f.read())
       bottleneck_tensor, jpeg_data_tensor, resized_input_tensor = (
           tf.import_graph_def(graph_def, name='', return_elements=[
@@ -81,15 +82,15 @@ def run_bottleneck_on_image(sess, image_data, image_data_tensor,
   	return bottleneck_values        
 
 def recommend(imagePath, extracted_features):
-    tf.compat.v1.reset_default_graph()
-    config = tf.compat.v1.ConfigProto(device_count = {'GPU': 0})
+    tf.reset_default_graph()
+    config = tf.ConfigProto(device_count = {'GPU': 0})
 
-    sess = tf.compat.v1.Session(config=config)
+    sess = tf.Session(config=config)
     graph, bottleneck_tensor, jpeg_data_tensor, resized_image_tensor = (create_inception_graph())
     image_data = gfile.FastGFile(imagePath, 'rb').read()
     features = run_bottleneck_on_image(sess, image_data, jpeg_data_tensor, bottleneck_tensor)	
 
-    with open('../lib/neighbor_list_recom_new.pickle','rb') as f:
+    with open('../lib/neighbor_list_recom.pickle','rb') as f:
         neighbor_list = pickle.load(f) 
     print("loaded images")
     get_top_k_similar(features, extracted_features, neighbor_list, k=9)
