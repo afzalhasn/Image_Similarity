@@ -123,13 +123,6 @@ for i, filename in enumerate(neighbor_list):
     
     if i % 250 == 0:
         print(i)
-       
 
 np.savetxt("saved_features_recom_new.txt", extracted_features)
 print("saved exttracted features")
-
-
-
-
-
-

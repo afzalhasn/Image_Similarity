@@ -76,7 +76,6 @@ def upload_img():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             inputloc = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            #outputloc = '/home/vinayak/todo-api/out'
             recommend(inputloc, extracted_features)
             os.remove(inputloc)
             #label = label1.replace("\n", "")
@@ -103,7 +102,8 @@ def upload_img():
 #==============================================================================================================================
 @app.route("/")
 def main():
-    return render_template("recommend.html")   
+    return render_template("recommend.html")  
+ 
 if __name__ == '__main__':
     # app.run(debug = True, host= '0.0.0.0')
     if "PORT" in os.environ:

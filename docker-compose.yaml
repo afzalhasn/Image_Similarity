@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  image_recognizer:
+    image: image_reader:1.0
+    container_name: image_reader
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - "5000:5000"
+    network_mode: "host"
+    tty: true
+
+    working_dir: /app/src/
+    command:
+      [
+        "gunicorn",
+        "-w",
+        "1",
+        "--timeout",
+        "120",
+        "--bind",
+        "0.0.0.0:5000",
+        "wsgi:app",
+      ]
+
+    environment:
+      - PORT=5000

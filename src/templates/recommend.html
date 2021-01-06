@@ -25,15 +25,14 @@
 
     <div class="navbar">
         <div class="navbar-inner">
-            <h1 class="text-center" style="color:black;"><b>IMAGE SEARCH DEMO </b>&nbsp;&nbsp;&nbsp;<a class="navbar-brand" href="">
-                             <img src="/images/logo.svg" style="height:40px;" ></a>
+            <h1 class="text-center" style="color:black;"><b>IMAGE RECOMMENDATION DEMO </b>&nbsp;&nbsp;&nbsp;<a class="navbar-brand" href="">
+                             <img src="/images/img-search.png" style="height:100px;" ></a>
 	    </h1>
 	    
         </div>
     </div>
     <div><br></br><br></br>
     </div>
-	
 
     <center></center>	
 
@@ -43,19 +42,14 @@
 ">
              <tr style="background: lightgrey;"><td><b>Chose your file to upload</b></td><td><b></b></td></tr>
             <tr><td><form method=post enctype=multipart/form-data>
-                        <!--<input data-bind="value: title" type="text" id="inputTask" placeholder="Path to the image" style="width: 150px;">-->
+                        <!-- <input data-bind="value: title" type="text" id="inputTask" placeholder="Path to the image" style="width: 150px;"> -->
 			<input type="file" name="file" required />
-			<input type=submit value ="Recommend" onclick="fun()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type=submit value ="FIND IMAGE" onclick="fun()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
         </form></td><td><b></b></td></tr>
-            
-                
                 <tr id="row1" style="display:none;"><td><a href=""><button id="clear" style="display:none;">Clear</button></a></td><td></td>
-                
             </tr>
         </table>
-        
-        
     </div>
     <center>
     <img id="load" src="/images/ajax-loader.gif" style="height:100px;width:100px;display:none;" >

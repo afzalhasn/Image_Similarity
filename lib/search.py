@@ -81,16 +81,17 @@ def run_bottleneck_on_image(sess, image_data, image_data_tensor,
   	return bottleneck_values        
 
 def recommend(imagePath, extracted_features):
-    tf.compat.v1.reset_default_graph()
-    config = tf.compat.v1.ConfigProto(device_count = {'GPU': 0})
 
-    sess = tf.compat.v1.Session(config=config)
-    graph, bottleneck_tensor, jpeg_data_tensor, resized_image_tensor = (create_inception_graph())
     image_data = gfile.FastGFile(imagePath, 'rb').read()
     features = run_bottleneck_on_image(sess, image_data, jpeg_data_tensor, bottleneck_tensor)	
 
-    with open('../lib/neighbor_list_recom_new.pickle','rb') as f:
-        neighbor_list = pickle.load(f) 
-    print("loaded images")
+    # print("loaded images")
     get_top_k_similar(features, extracted_features, neighbor_list, k=9)
 
+tf.compat.v1.reset_default_graph()
+config = tf.compat.v1.ConfigProto(device_count = {'GPU': 0})
+
+sess = tf.compat.v1.Session(config=config)
+graph, bottleneck_tensor, jpeg_data_tensor, resized_image_tensor = (create_inception_graph())
+with open('../lib/neighbor_list_recom_new.pickle','rb') as f:
+    neighbor_list = pickle.load(f) 
